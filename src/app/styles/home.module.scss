@@ -18,26 +18,21 @@
             border-radius: 10px;
             height: 190px;
 
-            .name, .password {
-                background-color: #262626;
-                color: white;
-                font-size: 12px;
-                height: 43px;
-                padding: 10px;
-                border-radius: 10px;
-            }
-
-            .name {
-                display: flex;
-                justify-content: space-between;
-
-                .arrows {
-                    width: 25px;
+            .password, .username {
+                .title {
+                    color: white;
+                    margin-bottom: 10px;
                 }
-            }
-
-            .options {
-                
+                .inputpass, .inputusername {
+                    background-color: #262626;
+                    color: white;
+                    font-size: 12px;
+                    height: 43px;
+                    padding: 10px;
+                    border-radius: 10px;
+                    width: 100%;
+                    
+                }
             }
         }
 
@@ -54,6 +49,10 @@
             text-align: center;
             display: flex;
             justify-self:center;
+        }
+
+        .submit:hover {
+            background-color: #4BA0D8;
         }
 
         

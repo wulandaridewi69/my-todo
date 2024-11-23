@@ -9,7 +9,7 @@ import Check from "../assets/check.png";
 import Reject from "../assets/reject.png";
 import Trash from "../assets/trash.png";
 
-const data = {
+let data = {
   result: [
     {
       id: 1,
@@ -37,6 +37,7 @@ const data = {
 };
 
 const Task = (props) => {
+  
   return (
     <>
       <div>
