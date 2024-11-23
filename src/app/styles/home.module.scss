@@ -1,0 +1,65 @@
+.home {
+    display: flex;
+    justify-self: center;
+    margin: 70px 0;
+}
+
+    .authorize {
+        background-color: #3C0D1D;
+        width: 300px;
+        height: 290px;
+        border-radius: 20px;
+
+        .form {
+            margin: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            row-gap: 25px;
+            border-radius: 10px;
+            height: 190px;
+
+            .name, .password {
+                background-color: #262626;
+                color: white;
+                font-size: 12px;
+                height: 43px;
+                padding: 10px;
+                border-radius: 10px;
+            }
+
+            .name {
+                display: flex;
+                justify-content: space-between;
+
+                .arrows {
+                    width: 25px;
+                }
+            }
+
+            .options {
+                
+            }
+        }
+
+        .submit {
+            background-color: 0C6198;
+            color: white;
+            font-size: 12px;
+            font-weight: normal;
+            border-radius: 8px;
+            height: 40px;
+            width: fit-content;
+            padding: 0 20px;
+            align-items: center;
+            text-align: center;
+            display: flex;
+            justify-self:center;
+        }
+
+        
+    
+    }
+
+$breakpoint-tablet: 768px;
+@media (max-width: $breakpoint-tablet) {
+}

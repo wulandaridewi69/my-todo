@@ -1,0 +1,29 @@
+.secCreate {
+    display: flex;
+    column-gap: 10px;
+    justify-content: center;
+    margin-top: -25px;
+
+    .create {
+        background-color: #262626;
+        height: 54px;
+        width: 640px;
+        border-radius: 8px;
+        color: white;
+        font-weight: normal;
+        align-items: center;
+        display: flex;
+    
+        .title {
+            padding-left: 14px;
+        }
+    }
+
+    .button {
+        background-color: 226693;
+        border-radius: 8px;
+        padding: 13px;
+        color: white;
+    }
+}
+
