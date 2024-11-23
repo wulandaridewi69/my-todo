@@ -1,4 +1,11 @@
-import styles from "../app/styles/home.module.scss";
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation'
+
+
+import styles from "./styles/home.module.scss";
+import Button from "./components/Button";
 
 let data = {
   result: [
@@ -15,11 +22,58 @@ let data = {
   ],
 };
 
-const Home = () => {
+const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    username && password ? setDisabled(false) : setDisabled(true);
+    console.log(username);
+  }, [username, password]);
+
+  const handleSubmit = (e) => {
+    console.log("clicked")
+    setLoading(true);
+
+    const body = {
+      username,
+      password,
+    };
+
+    localStorage.setItem("username", username);
+    router.push('/task')
+
+
+    // let requestOptions = {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(body),
+    // };
+
+    // fetch("https://mnroom.capstone.my.id/login", requestOptions)
+    //   .then((response) => response.json())
+    //   .then((result) => {
+
+    //     const { message, data, token } = result;
+    //     if (message === "success") {
+    //       localStorage.setItem("token", token);
+    //       setToken(token);
+    //       router.push("/");
+    //     }
+    //     alert(message);
+    //   })
+    //   .catch((err) => {
+    //     alert(err.toString());
+    //   })
+    //   .finally(() => setLoading(false));
+  };
   return (
-    <main className={styles.home}>
+    <div className={styles.home}>
       <div className={styles.authorize}>
-        <div className={styles.form}>
+        <div className={styles.form}>        
           <div className={styles.username}>
             <p className={styles.title}>Username</p>
             <input
@@ -28,6 +82,7 @@ const Home = () => {
               className={styles.inputusername}
               placeholder="John"
               required
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className={styles.password}>
@@ -38,17 +93,23 @@ const Home = () => {
               className={styles.inputpass}
               placeholder="•••••••••"
               required
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
         </div>
 
         <div className={styles.submit}>
-          <button type="submit">Submit</button>
+          <Button
+            id="btnSubmit"
+            label="Submit"
+            loading={false}
+            type="submit"
+            onClick={(e) => handleSubmit(e)}
+          />
         </div>
       </div>
-      <div></div>
-    </main>
+    </div>
   );
 };
 
-export default Home;
+export default Login;

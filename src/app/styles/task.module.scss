@@ -32,13 +32,22 @@
          display: flex;
          padding: 10px;
          justify-content: space-between;
+         margin-bottom: 15px;
+
+         .titleTask {
+            width: 100%;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+         }
 
          .pen {
             width: 40px;
          }
 
          .yes {
-            background-color: 30B383;
+            background-color: #30B383;
             width: 60px;
             height: 45px;
             border-radius: 8px;
@@ -84,6 +93,15 @@
          display: flex;
          padding: 10px;
          font-size: 12px;
+         margin-bottom: 15px;
+
+         .titleTask {
+            width: 100%;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+         }
       }
    }
 }
@@ -123,6 +141,15 @@
          display: flex;
          padding: 10px;
          font-size: 12px;
+         margin-bottom: 15px;
+
+         .titleTask {
+            width: 100%;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+         }
       }
    }
 }
@@ -162,6 +189,15 @@
          display: flex;
          padding: 10px;
          font-size: 12px;
+         margin-bottom: 15px;
+
+         .titleTask {
+            width: 100%;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+         }
       }
    }
 }

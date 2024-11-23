@@ -1,6 +1,9 @@
-import Image from "next/image";
+"use client";
 
-import { smallBox } from "../components/Box";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+
+// import { smallBox } from "../components/Box";
 import styles from "../styles/task.module.scss";
 import Arrows from "../assets/arrow.png";
 import Creates from "../components/Create";
@@ -37,11 +40,21 @@ let data = {
 };
 
 const Task = (props) => {
-  
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(`${url}`);
+      const data = await res.json();
+      setUsername(localStorage.getItem("username"));
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
       <div>
-        {props.username == "lead" ? (
+        {username == "lead" ? (
           <>
             <Creates />
           </>
@@ -52,7 +65,7 @@ const Task = (props) => {
 
       <div className={styles.section1}>
         <Image className={styles.arrows} src={Arrows} />
-        {props.username == "lead" ? (
+        {username == "lead" ? (
           <>
             <p>Lead</p>
           </>
@@ -65,10 +78,10 @@ const Task = (props) => {
 
       <div className={styles.sectiongroup}>
         <div className={styles.section2}>
-          {props.username == "lead" ? (
+          {username == "lead" ? (
             <>
               <div className={styles.task}>
-                <p>8 days ago — 1. The external world in its entirety.</p>
+                <p className={styles.titleTask}>{item.title}</p>
                 <div className={styles.pen}>
                   <Image src={Pen} />
                 </div>
@@ -76,28 +89,22 @@ const Task = (props) => {
             </>
           ) : (
             <>
-              <div className={styles.task}>
-                <p>8 days ago — 1. The external world in its entirety.</p>
-                <div className={styles.yes}>
-                  <button>Yes</button>
-                </div>
+              <div>
+                {data.result.map((item) => {
+                  return (
+                    <div className={styles.task} key={item.id} id={item.id}>
+                      <p className={styles.titleTask}>{item.title}</p>
+                      <div className={styles.yes}>
+                        <button>Yes</button>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </>
           )}
         </div>
       </div>
-
-      {/* <div className={styles.contentPage}>
-        {data.result.map((item) => {
-          return (
-            <smallBox
-              key={item.id}
-              id={item.id}
-              title={item.title}
-            />
-          );
-        })}
-      </div> */}
 
       <div className={styles.taskprocess}>
         {/* ON PROGRESS */}
@@ -108,53 +115,25 @@ const Task = (props) => {
           <div className={styles.groupprogress}>
             <div className={styles.sectionprogress}>
               <div className={styles.section3}>
-                <div className={styles.progresstask}>
-                  <p>8 days ago — 1. The external world in its entirety.</p>
-                  <div className={styles.buttonicon}>
-                    {props.username == "lead" ? (
-                      <>
-                        <Image className={styles.icon} src={Check} />
-                        <Image className={styles.icon} src={Reject} />
-                        <Image className={styles.icon} src={Trash} />
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.section3}>
-                <div className={styles.progresstask}>
-                  <p>8 days ago — 1. The external world in its entirety.</p>
-                  <div className={styles.buttonicon}>
-                  {props.username == "lead" ? (
-                      <>
-                        <Image className={styles.icon} src={Check} />
-                        <Image className={styles.icon} src={Reject} />
-                        <Image className={styles.icon} src={Trash} />
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.section3}>
-                <div className={styles.progresstask}>
-                  <p>8 days ago — 1. The external world in its entirety.</p>
-                  <div className={styles.buttonicon}>
-                  {props.username == "lead" ? (
-                      <>
-                        <Image className={styles.icon} src={Check} />
-                        <Image className={styles.icon} src={Reject} />
-                        <Image className={styles.icon} src={Trash} />
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
+                <div>
+                  {data.result.map((item) => {
+                    return (
+                      <div className={styles.progresstask}>
+                        <p className={styles.titleTask}>{item.title}</p>
+                        <div className={styles.buttonicon}>
+                          {props.username == "lead" ? (
+                            <>
+                              <Image className={styles.icon} src={Check} />
+                              <Image className={styles.icon} src={Reject} />
+                              <Image className={styles.icon} src={Trash} />
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -169,47 +148,23 @@ const Task = (props) => {
           <div className={styles.groupprogress}>
             <div className={styles.sectionprogress}>
               <div className={styles.section3}>
-                <div className={styles.progresstask}>
-                  <p>8 days ago — 1. The external world in its entirety.</p>
-                  <div className={styles.buttonicon}>
-                    {props.username == "lead" ? (
-                      <>
-                        <Image className={styles.icon} src={Trash} />
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.section3}>
-                <div className={styles.progresstask}>
-                  <p>8 days ago — 1. The external world in its entirety.</p>
-                  <div className={styles.buttonicon}>
-                  {props.username == "lead" ? (
-                      <>
-                        <Image className={styles.icon} src={Trash} />
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.section3}>
-                <div className={styles.progresstask}>
-                  <p>8 days ago — 1. The external world in its entirety.</p>
-                  <div className={styles.buttonicon}>
-                  {props.username == "lead" ? (
-                      <>
-                        <Image className={styles.icon} src={Trash} />
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
+                <div>
+                  {data.result.map((item) => {
+                    return (
+                      <div className={styles.progresstask}>
+                        <p className={styles.titleTask}>{item.title}</p>
+                        <div className={styles.buttonicon}>
+                          {props.username == "lead" ? (
+                            <>
+                              <Image className={styles.icon} src={Trash} />
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -224,47 +179,23 @@ const Task = (props) => {
           <div className={styles.groupprogress}>
             <div className={styles.sectionprogress}>
               <div className={styles.section3}>
-                <div className={styles.progresstask}>
-                  <p>8 days ago — 1. The external world in its entirety.</p>
-                  <div className={styles.buttonicon}>
-                    {props.username == "lead" ? (
-                      <>
-                        <Image className={styles.icon} src={Trash} />
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.section3}>
-                <div className={styles.progresstask}>
-                  <p>8 days ago — 1. The external world in its entirety.</p>
-                  <div className={styles.buttonicon}>
-                  {props.username == "lead" ? (
-                      <>
-                        <Image className={styles.icon} src={Trash} />
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.section3}>
-                <div className={styles.progresstask}>
-                  <p>8 days ago — 1. The external world in its entirety.</p>
-                  <div className={styles.buttonicon}>
-                  {props.username == "lead" ? (
-                      <>
-                        <Image className={styles.icon} src={Trash} />
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
+                <div>
+                {data.result.map((item) => {
+                  return (
+                    <div className={styles.progresstask}>
+                      <p className={styles.titleTask}>{item.title}</p>
+                      <div className={styles.buttonicon}>
+                        {props.username == "lead" ? (
+                          <>
+                            <Image className={styles.icon} src={Trash} />
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
                 </div>
               </div>
             </div>
