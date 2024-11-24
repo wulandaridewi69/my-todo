@@ -3,16 +3,17 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-// import { smallBox } from "../components/Box";
+import {TaskTeam, TaskLead} from "../components/Tasklist";
 import styles from "../styles/task.module.scss";
 import Arrows from "../assets/arrow.png";
 import Creates from "../components/Create";
-import Pen from "../assets/update.png";
 import Check from "../assets/check.png";
 import Reject from "../assets/reject.png";
 import Trash from "../assets/trash.png";
 
-let data = {
+
+
+let dataProgress = {
   result: [
     {
       id: 1,
@@ -21,35 +22,85 @@ let data = {
     {
       id: 2,
       title:
-        "First published in 1869, Nature is the world's leading multidisciplinary science journal.",
-    },
-    {
-      id: 3,
-      title:
         "We are dedicated staff, scientists and members advancing effective, lasting conservation in more than 80 countries and territoriesLorem ipsum is placeholder text commonly used in the graphic",
     },
     {
-      id: 4,
+      id: 3,
       title: "This padding is more, please fix it",
     },
     {
-      id: 5,
-      title: "8 days ago — 1. The external world in its entirety",
+      id: 4,
+      title:
+        "Hide this please",
     },
+    {
+      id: 5,
+      title: "Create landing page about MR",
+    },
+
   ],
 };
 
-const Task = (props) => {
+let dataDone = {
+  result: [
+    {
+      id: 1,
+      title: "8 days ago — 1. The external world in its entirety",
+    },
+    {
+      id: 2,
+      title:
+        "First published in 1869, Nature is the world's leading multidisciplinary science journal.",
+    }
+  ],
+};
+
+let dataReject = {
+  result: [
+    {
+      id: 1,
+      title: "Create landing page about MR",
+    },
+
+  ],
+};
+
+const Task = () => {
   const [username, setUsername] = useState("");
+  const [progress, setProgress] = useState(dataProgress);
+  const [done, setDone] = useState(dataDone);
+  // const [data, setData] = useState('');
+  const [reject, setReject] = useState(dataReject);
+  const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
-      const res = await fetch(`${url}`);
-      const data = await res.json();
       setUsername(localStorage.getItem("username"));
-    }
-    fetchData();
   }, []);
+
+  const updateTask = (taskId, newValue) => {
+    if (!newValue.text || /^\s*$/.test(newValue.text)) {
+      return;
+    }
+    setProgress(prev => prev.map(item => (item.id === taskId ? newValue : item)));
+  };
+
+  const removeTask = id => {
+    const removedArr = [...task].filter(task => task.id !== id);
+    setReject(removedArr);
+  };
+
+  const completeTask = id => {
+    let updatedTask = progress.map(task => {
+      if (task.id === id) {
+        task.isComplete = !task.isComplete;
+      }
+      return task;
+    });
+    setDone(updatedTask);
+  };
+
+
 
   return (
     <>
@@ -80,27 +131,11 @@ const Task = (props) => {
         <div className={styles.section2}>
           {username == "lead" ? (
             <>
-              <div className={styles.task}>
-                <p className={styles.titleTask}>{item.title}</p>
-                <div className={styles.pen}>
-                  <Image src={Pen} />
-                </div>
-              </div>
+              <TaskLead/>
             </>
           ) : (
             <>
-              <div>
-                {data.result.map((item) => {
-                  return (
-                    <div className={styles.task} key={item.id} id={item.id}>
-                      <p className={styles.titleTask}>{item.title}</p>
-                      <div className={styles.yes}>
-                        <button>Yes</button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+              <TaskTeam/>
             </>
           )}
         </div>
@@ -116,16 +151,16 @@ const Task = (props) => {
             <div className={styles.sectionprogress}>
               <div className={styles.section3}>
                 <div>
-                  {data.result.map((item) => {
+                  {progress.result.map((item) => {
                     return (
-                      <div className={styles.progresstask}>
+                      <div key={item.id} id={item.id} className={styles.progresstask}>
                         <p className={styles.titleTask}>{item.title}</p>
                         <div className={styles.buttonicon}>
-                          {props.username == "lead" ? (
+                          {username == "lead" ? (
                             <>
                               <Image className={styles.icon} src={Check} />
                               <Image className={styles.icon} src={Reject} />
-                              <Image className={styles.icon} src={Trash} />
+                              <Image id="i" onclick="remove(this)" className={styles.icon} src={Trash} />
                             </>
                           ) : (
                             <></>
@@ -149,14 +184,14 @@ const Task = (props) => {
             <div className={styles.sectionprogress}>
               <div className={styles.section3}>
                 <div>
-                  {data.result.map((item) => {
+                  {done.result.map((item) => {
                     return (
-                      <div className={styles.progresstask}>
+                      <div key={item.id} id={item.id} className={styles.progresstask}>
                         <p className={styles.titleTask}>{item.title}</p>
                         <div className={styles.buttonicon}>
-                          {props.username == "lead" ? (
+                          {username == "lead" ? (
                             <>
-                              <Image className={styles.icon} src={Trash} />
+                              <Image id="i" onclick="remove(this)" className={styles.icon} src={Trash} />
                             </>
                           ) : (
                             <></>
@@ -180,14 +215,14 @@ const Task = (props) => {
             <div className={styles.sectionprogress}>
               <div className={styles.section3}>
                 <div>
-                {data.result.map((item) => {
+                {reject.result.map((item) => {
                   return (
-                    <div className={styles.progresstask}>
+                    <div key={item.id} id={item.id} className={styles.progresstask}>
                       <p className={styles.titleTask}>{item.title}</p>
                       <div className={styles.buttonicon}>
-                        {props.username == "lead" ? (
+                        {username == "lead" ? (
                           <>
-                            <Image className={styles.icon} src={Trash} />
+                            <Image id="i" onclick="remove(this)" className={styles.icon} src={Trash} />
                           </>
                         ) : (
                           <></>

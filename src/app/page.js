@@ -45,31 +45,8 @@ const Login = () => {
 
     localStorage.setItem("username", username);
     router.push('/task')
-
-
-    // let requestOptions = {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(body),
-    // };
-
-    // fetch("https://mnroom.capstone.my.id/login", requestOptions)
-    //   .then((response) => response.json())
-    //   .then((result) => {
-
-    //     const { message, data, token } = result;
-    //     if (message === "success") {
-    //       localStorage.setItem("token", token);
-    //       setToken(token);
-    //       router.push("/");
-    //     }
-    //     alert(message);
-    //   })
-    //   .catch((err) => {
-    //     alert(err.toString());
-    //   })
-    //   .finally(() => setLoading(false));
   };
+  
   return (
     <div className={styles.home}>
       <div className={styles.authorize}>
