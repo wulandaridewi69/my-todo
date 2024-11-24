@@ -46,7 +46,7 @@ const Login = () => {
     localStorage.setItem("username", username);
     router.push('/task')
   };
-  
+
   return (
     <div className={styles.home}>
       <div className={styles.authorize}>
@@ -74,7 +74,6 @@ const Login = () => {
             />
           </div>
         </div>
-
         <div className={styles.submit}>
           <Button
             id="btnSubmit"
@@ -84,6 +83,9 @@ const Login = () => {
             onClick={(e) => handleSubmit(e)}
           />
         </div>
+      </div>
+      <div>
+      <a href="https://www.figma.com/design/K2wVuaQrAUIkyW7hjQhzIh/todo-activities?node-id=0-1&m=dev&t=5B76KWomrVbRPL2X-1">Design Figma</a>
       </div>
     </div>
   );

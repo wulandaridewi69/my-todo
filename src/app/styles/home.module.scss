@@ -2,6 +2,10 @@
     display: flex;
     justify-self: center;
     margin: 70px 0;
+    flex-direction: column;
+    color: white;
+    row-gap: 10px;
+    align-items: center;
 }
 
     .authorize {
